@@ -1,0 +1,21 @@
+{
+  "name": "tp2-proyecto",
+  "version": "1.0.0",
+  "description": "Trabajo Practico TP2 Patricio Cordoba - Sistema de stock",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/bin/www",
+    "test": "test",
+    "start-dev": "nodemon src/bin/www.js"
+  },
+  "author": "Patricio Cordoba",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
+    "express": "^4.18.1",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0"
+  }
+}
