@@ -4,6 +4,7 @@ import logger from "morgan";
 import createError from "http-errors"
 
 import { indexRouter } from "./routes/indexRouter.js"
+import {stockRouter} from "./routes/stockRouter.js";
 const app = express();
 
 app.use(logger('dev'));
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+app.use('/stock', stockRouter);
 
 app.use((req, res, next) => {
     next(createError(404));
