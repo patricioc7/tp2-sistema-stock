@@ -6,11 +6,10 @@ const STOCK = 'stock';
 
 const getAllStockFromDB = async () => {
     const conn = await getConnection();
-    const stocks = await conn.db(DATABASE)
+    return await conn.db(DATABASE)
         .collection(STOCK)
         .find({})
         .toArray()
-    return stocks
 }
 
 const addNewStockFromDB = async (stock) => {
