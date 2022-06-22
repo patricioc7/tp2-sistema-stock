@@ -1,28 +1,56 @@
-import {getAllStockFromDB, addNewStockFromDB, increaseStockFromDB, decreaseStockFromDB} from "../data/stockDao.js";
-import {Stock} from "../domain/model/stock.js";
+import {
+  getAllStockFromDB,
+  addNewStockFromDB,
+  increaseStockFromDB,
+  decreaseStockFromDB,
+  getStockByIdFromDB
+} from '../data/stockDao.js'
+import { Stock } from '../domain/model/stock.js'
+import { doesCustomerExist, doesProductExist, doesStoreExist } from '../domain/actions/validations.js'
+import { logProductSell, logIncreaseStock, logDecreaseStock } from '../domain/actions/historyLogger.js'
 
+// TODO add filters
 const getAllStock = async () => {
-    return await getAllStockFromDB()
+  return await getAllStockFromDB()
 }
 
 const addNewStock = async (body) => {
-    // TODO validate ProductID and StoreID
+  if (!doesProductExist(body.productId) || !doesStoreExist(body.storeId)) {
+    throw new Error('Product or Store not existent')
+  }
 
-    const stock = new Stock(
-        undefined,
-        body.productId,
-        body.qty,
-        body.storeId
-    )
-    return await addNewStockFromDB(stock)
+  // Siempre el stock se debe inicializar con 0 así no quedan inconsistencias en los logs
+  const stock = new Stock(
+    body.productId,
+    0,
+    body.storeId
+  )
+
+  return await addNewStockFromDB(stock)
+}
+
+const getStockById = async (stockId) => {
+  return await getStockByIdFromDB(stockId)
 }
 
 const increaseQtyStock = async (stockId, qty) => {
-    return await increaseStockFromDB(stockId, qty);
+  logIncreaseStock(stockId, qty)
+  return await increaseStockFromDB(stockId, qty)
 }
 
 const decreaseQtyStock = async (stockId, qty) => {
-    return await decreaseStockFromDB(stockId, qty);
+  logDecreaseStock(stockId, qty)
+  return await decreaseStockFromDB(stockId, qty)
 }
 
-export { getAllStock, addNewStock, increaseQtyStock, decreaseQtyStock }
+const sellStock = async (stockId, customerId, qty) => {
+  if (!doesCustomerExist(customerId)) {
+    throw new Error('Customer not existent')
+  }
+
+  logProductSell(stockId, customerId, qty)
+
+  return await decreaseStockFromDB(stockId, qty)
+}
+
+export { getAllStock, addNewStock, increaseQtyStock, decreaseQtyStock, getStockById, sellStock }

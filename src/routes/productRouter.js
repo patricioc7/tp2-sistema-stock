@@ -1,18 +1,18 @@
-import express from "express";
-import {addNewProduct, getAllProducts, updateProduct} from "../cotroller/productController.js";
+import express from 'express'
+import { addNewProduct, getAllProducts, updateProduct } from '../cotroller/productController.js'
 
-const productRouter = express.Router();
+const productRouter = express.Router()
 
 productRouter.get('/', async (req, res, next) => {
-    res.json(await getAllProducts());
-});
+  res.json(await getAllProducts())
+})
 
 productRouter.post('/', async (req, res, next) => {
-    res.json(await addNewProduct(req.body));
-});
+  res.json(await addNewProduct(req.body))
+})
 
 productRouter.put('/:id', async (req, res, next) => {
-    res.json(await updateProduct(req.body));
-});
+  res.json(await updateProduct(req.body))
+})
 
 export { productRouter }

@@ -1,9 +1,8 @@
 class Product {
-    constructor(_id, name, sku ) {
-        this._id = id;
-        this.name = name;
-        this.sku = sku;
-    }
+  constructor (name, sku) {
+    this.name = name
+    this.sku = sku
+  }
 }
 
-export {Product};
+export { Product }

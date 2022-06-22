@@ -1,15 +1,15 @@
 import mongodb from 'mongodb'
 
 const uri = process.env.MONGODB;
-const client = new mongodb.MongoClient(uri);
+const client = new mongodb.MongoClient(uri)
 
-let instance = null;
+let instance = null
 
 const getConnection = async () => {
-    if(instance == null){
-        instance = await client.connect();
-    }
-    return instance;
+  if (instance == null) {
+    instance = await client.connect()
+  }
+  return instance
 }
 
-export { getConnection };
+export { getConnection }
