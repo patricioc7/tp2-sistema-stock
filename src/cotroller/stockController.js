@@ -39,6 +39,12 @@ const increaseQtyStock = async (stockId, qty) => {
 }
 
 const decreaseQtyStock = async (stockId, qty) => {
+  const stock = await getStockById(stockId)
+
+  if (stock.qty < qty) {
+    throw new Error('insufficient stock')
+  }
+
   logDecreaseStock(stockId, qty)
   return await decreaseStockFromDB(stockId, qty)
 }

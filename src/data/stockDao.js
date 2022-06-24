@@ -45,4 +45,7 @@ const getStockByIdFromDB = async (stockId) => {
     .collection(STOCK)
     .findOne({ _id: new ObjectId(stockId) })
 }
+
+// TODO DELETE STOCK
+
 export { getAllStockFromDB, addNewStockFromDB, increaseStockFromDB, decreaseStockFromDB, getStockByIdFromDB }
