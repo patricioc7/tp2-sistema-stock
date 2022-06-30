@@ -3,12 +3,13 @@ import { getConnection } from './connection.js'
 const DATABASE = 'ort'
 const HISTORY = 'historyLog'
 
-// TODO PAGINAR
-const getAllHistoryLogs = async () => {
+const getAllHistoryLogsFromDB = async (pageSize, page) => {
   const conn = await getConnection()
   return await conn.db(DATABASE)
     .collection(HISTORY)
     .find({})
+    .limit(pageSize)
+    .skip(pageSize * page)
     .toArray()
 }
 
@@ -19,4 +20,4 @@ const addNewHistoryLog = async (historyLog) => {
     .insertOne(historyLog)
 }
 
-export { getAllHistoryLogs, addNewHistoryLog }
+export { getAllHistoryLogsFromDB, addNewHistoryLog }

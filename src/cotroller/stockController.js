@@ -3,7 +3,7 @@ import {
   addNewStockFromDB,
   increaseStockFromDB,
   decreaseStockFromDB,
-  getStockByIdFromDB
+  getStockByIdFromDB, deleteStockByIdFromDB
 } from '../data/stockDao.js'
 import { Stock } from '../domain/model/stock.js'
 import { doesCustomerExist, doesProductExist, doesStoreExist } from '../domain/actions/validations.js'
@@ -26,7 +26,8 @@ const addNewStock = async (body) => {
     body.storeId
   )
 
-  return await addNewStockFromDB(stock)
+  const result = await addNewStockFromDB(stock)
+  return await getStockById(result.insertedId)
 }
 
 const getStockById = async (stockId) => {
@@ -35,7 +36,8 @@ const getStockById = async (stockId) => {
 
 const increaseQtyStock = async (stockId, qty) => {
   logIncreaseStock(stockId, qty)
-  return await increaseStockFromDB(stockId, qty)
+  await increaseStockFromDB(stockId, qty)
+  return await getStockById(stockId)
 }
 
 const decreaseQtyStock = async (stockId, qty) => {
@@ -46,7 +48,8 @@ const decreaseQtyStock = async (stockId, qty) => {
   }
 
   logDecreaseStock(stockId, qty)
-  return await decreaseStockFromDB(stockId, qty)
+  await decreaseStockFromDB(stockId, qty)
+  return await getStockById(stockId)
 }
 
 const sellStock = async (stockId, customerId, qty) => {
@@ -56,7 +59,12 @@ const sellStock = async (stockId, customerId, qty) => {
 
   logProductSell(stockId, customerId, qty)
 
-  return await decreaseStockFromDB(stockId, qty)
+  await decreaseQtyStock(stockId, qty)
+  return await getStockById(stockId)
 }
 
-export { getAllStock, addNewStock, increaseQtyStock, decreaseQtyStock, getStockById, sellStock }
+const deleteStockById = async (stockId) => {
+  return await deleteStockByIdFromDB(stockId)
+}
+
+export { getAllStock, addNewStock, increaseQtyStock, decreaseQtyStock, getStockById, sellStock, deleteStockById }

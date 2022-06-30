@@ -1,6 +1,6 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator'
-import { addNewProduct, getAllProducts, updateProduct } from '../cotroller/productController.js'
+import { addNewProduct, getAllProducts, getProductById } from '../cotroller/productController.js'
 import { auth } from '../middlewares/auth.js'
 
 const productRouter = express.Router()
@@ -22,8 +22,8 @@ productRouter.post('/',
     res.json(await addNewProduct(req.body))
   })
 
-productRouter.put('/:id', async (req, res, next) => {
-  res.json(await updateProduct(req.body))
+productRouter.get('/:id', async (req, res, next) => {
+  res.json(await getProductById(req.params.id))
 })
 
 export { productRouter }

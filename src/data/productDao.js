@@ -19,13 +19,6 @@ const addNewProductToDB = async (product) => {
     .insertOne(product)
 }
 
-const updateProductOnDB = async (product) => {
-  const conn = await getConnection()
-  return await conn.db(DATABASE)
-    .collection(PRODUCT)
-    .updateOne({ _id: new ObjectId(product._id) }, product)
-}
-
 const getProductByIdFromDb = async (productId) => {
   const conn = await getConnection()
   return await conn.db(DATABASE)
@@ -33,4 +26,4 @@ const getProductByIdFromDb = async (productId) => {
     .findOne({ _id: new ObjectId(productId) })
 }
 
-export { getAllProductsFromDB, addNewProductToDB, updateProductOnDB, getProductByIdFromDb }
+export { getAllProductsFromDB, addNewProductToDB, getProductByIdFromDb }

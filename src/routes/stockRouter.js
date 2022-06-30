@@ -5,7 +5,7 @@ import {
   addNewStock,
   increaseQtyStock,
   decreaseQtyStock,
-  getStockById, sellStock
+  getStockById, sellStock, deleteStockById
 } from '../cotroller/stockController.js'
 import { auth } from '../middlewares/auth.js'
 
@@ -17,8 +17,8 @@ stockRouter.get('/', async (req, res, next) => {
   res.json(await getAllStock())
 })
 
-stockRouter.get('/:stockId', async (req, res, next) => {
-  res.json(await getStockById())
+stockRouter.get('/:id', async (req, res, next) => {
+  res.json(await getStockById(req.params.id))
 })
 
 stockRouter.post('/',
@@ -76,8 +76,15 @@ stockRouter.put('/:stockId/sell/:customerId/:qty',
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
-
-    res.json(await sellStock(req.params.stockId, req.params.customerId, req.params.qty))
+    try {
+      res.json(await sellStock(req.params.stockId, req.params.customerId, req.params.qty))
+    } catch (e) {
+      return res.status(409).json({ errors: 'Stock insuficiente' })
+    }
   })
+
+stockRouter.delete('/:id', async (req, res, next) => {
+  res.json(await deleteStockById(req.params.id))
+})
 
 export { stockRouter }

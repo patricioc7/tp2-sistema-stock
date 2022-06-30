@@ -1,15 +1,20 @@
-import { addNewCustomerToDB, getAllCustomersFromDB, updateCustomerOnDB } from '../data/customerDao.js'
+import {
+  addNewCustomerToDB,
+  getAllCustomersFromDB,
+  getCustomerByIdFromDb,
+} from '../data/customerDao.js'
 
 const getAllCustomers = async () => {
   return await getAllCustomersFromDB()
 }
 
-const addNewCustomer = async (product) => {
-  return await addNewCustomerToDB(product)
+const addNewCustomer = async (customer) => {
+  await addNewCustomerToDB(customer)
+  return customer
 }
 
-const updateCustomer = async (product) => {
-  return await updateCustomerOnDB(product)
+const getCustomerById = async (id) => {
+  return await getCustomerByIdFromDb(id)
 }
 
-export { getAllCustomers, addNewCustomer, updateCustomer }
+export { getAllCustomers, addNewCustomer, getCustomerById }

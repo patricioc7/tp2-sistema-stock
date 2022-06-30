@@ -5,11 +5,13 @@ const getAllStores = async () => {
 }
 
 const addNewStore = async (store) => {
-  return await addNewStoreToDB(store)
+  await addNewStoreToDB(store)
+  return store
 }
 
 const updateStore = async (store) => {
-  return await updateStoreOnDB(store)
+  await updateStoreOnDB(store)
+  return store
 }
 
 const getStoreById = async (store) => {

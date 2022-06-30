@@ -1,5 +1,5 @@
 import express from 'express'
-import { addNewStore, getAllStores, updateStore } from '../cotroller/storeController.js'
+import {addNewStore, getAllStores, getStoreById, updateStore} from '../cotroller/storeController.js'
 import { body, validationResult } from 'express-validator'
 import { auth } from '../middlewares/auth.js'
 
@@ -22,8 +22,8 @@ storeRouter.post('/',
     res.json(await addNewStore(req.body))
   })
 
-storeRouter.put('/:id', async (req, res, next) => {
-  res.json(await updateStore(req.body))
+storeRouter.get('/:id', async (req, res, next) => {
+  res.json(await getStoreById(req.params.id))
 })
 
 export { storeRouter }

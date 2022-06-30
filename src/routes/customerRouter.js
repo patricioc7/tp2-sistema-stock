@@ -1,7 +1,7 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator'
 
-import { addNewCustomer, getAllCustomers, updateCustomer } from '../cotroller/customerController.js'
+import { addNewCustomer, getAllCustomers, getCustomerById } from '../cotroller/customerController.js'
 import { auth } from '../middlewares/auth.js'
 
 const customerRouter = express.Router()
@@ -23,8 +23,8 @@ customerRouter.post('/',
     res.json(await addNewCustomer(req.body))
   })
 
-customerRouter.put('/:id', async (req, res, next) => {
-  res.json(await updateCustomer(req.body))
+customerRouter.get('/:id', async (req, res, next) => {
+  res.json(await getCustomerById(req.params.id))
 })
 
 export { customerRouter }

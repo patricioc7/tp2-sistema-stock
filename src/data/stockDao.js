@@ -46,6 +46,11 @@ const getStockByIdFromDB = async (stockId) => {
     .findOne({ _id: new ObjectId(stockId) })
 }
 
-// TODO DELETE STOCK
+const deleteStockByIdFromDB = async (stockId) => {
+  const conn = await getConnection()
+  return await conn.db(DATABASE)
+    .collection(STOCK)
+    .deleteOne({ _id: new ObjectId(stockId) })
+}
 
-export { getAllStockFromDB, addNewStockFromDB, increaseStockFromDB, decreaseStockFromDB, getStockByIdFromDB }
+export { getAllStockFromDB, addNewStockFromDB, increaseStockFromDB, decreaseStockFromDB, getStockByIdFromDB, deleteStockByIdFromDB }

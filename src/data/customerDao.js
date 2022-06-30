@@ -19,13 +19,6 @@ const addNewCustomerToDB = async (store) => {
     .insertOne(store)
 }
 
-const updateCustomerOnDB = async (store) => {
-  const conn = await getConnection()
-  return await conn.db(DATABASE)
-    .collection(CUSTOMER)
-    .updateOne({ _id: new ObjectId(store._id) }, store)
-}
-
 const getCustomerByIdFromDb = async (customerId) => {
   const conn = await getConnection()
   return await conn.db(DATABASE)
@@ -33,4 +26,4 @@ const getCustomerByIdFromDb = async (customerId) => {
     .findOne({ _id: new ObjectId(customerId) })
 }
 
-export { getAllCustomersFromDB, addNewCustomerToDB, updateCustomerOnDB, getCustomerByIdFromDb }
+export { getAllCustomersFromDB, addNewCustomerToDB, getCustomerByIdFromDb }
