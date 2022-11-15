@@ -1,11 +1,12 @@
 import express from 'express'
 import { body, param, validationResult } from 'express-validator'
 import {
-  getAllStock,
-  addNewStock,
-  increaseQtyStock,
-  decreaseQtyStock,
-  getStockById, sellStock, deleteStockById
+    getAllStock,
+    addNewStock,
+    getAmountOfStockPages,
+    increaseQtyStock,
+    decreaseQtyStock,
+    getStockById, sellStock, deleteStockById, getAllStockPaginated
 } from '../cotroller/stockController.js'
 import { auth } from '../middlewares/auth.js'
 
@@ -17,6 +18,16 @@ stockRouter.get('/', async (req, res, next) => {
   res.json(await getAllStock())
 })
 
+stockRouter.get('/paginated', async (req, res, next) => {
+    const pageSize = req.query.pageSize ? parseInt(req.query.pageSize): 0;
+    const page = req.query.page ? parseInt(req.query.page): 0;
+    res.json(await getAllStockPaginated(pageSize, page))
+})
+
+stockRouter.get('/pages', async (req, res, next) => {
+    const pageSize = req.query.pageSize ? parseInt(req.query.pageSize): 0;
+    res.json(await getAmountOfStockPages(pageSize))
+})
 stockRouter.get('/:id', async (req, res, next) => {
   res.json(await getStockById(req.params.id))
 })

@@ -1,4 +1,4 @@
-import { addNewProductToDB, getAllProductsFromDB, getProductByIdFromDb } from '../data/productDao.js'
+import { addNewProductToDB, getAllProductsFromDB, getProductByIdFromDb, deleteProductByIdFromDb } from '../data/productDao.js'
 
 const getAllProducts = async () => {
   return await getAllProductsFromDB()
@@ -13,4 +13,8 @@ const getProductById = async (id) => {
   return await getProductByIdFromDb(id)
 }
 
-export { getAllProducts, addNewProduct, getProductById }
+const deleteProductById = async (id) => {
+  return await deleteProductByIdFromDb(id)
+}
+
+export { getAllProducts, addNewProduct, getProductById, deleteProductById}

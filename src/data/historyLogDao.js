@@ -20,4 +20,12 @@ const addNewHistoryLog = async (historyLog) => {
     .insertOne(historyLog)
 }
 
-export { getAllHistoryLogsFromDB, addNewHistoryLog }
+
+const getHistoryPagesFromDB = async () => {
+  const conn = await getConnection()
+  return await conn.db(DATABASE)
+      .collection(HISTORY)
+      .countDocuments({})
+}
+
+export { getAllHistoryLogsFromDB, addNewHistoryLog, getHistoryPagesFromDB }

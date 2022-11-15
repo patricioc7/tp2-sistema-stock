@@ -1,4 +1,4 @@
-import { addNewStoreToDB, getAllStoresFromDB, getStoreByIdFromDb, updateStoreOnDB } from '../data/storeDao.js'
+import { addNewStoreToDB, getAllStoresFromDB, getStoreByIdFromDb, updateStoreOnDB, deleteStoreByIdFromDb } from '../data/storeDao.js'
 
 const getAllStores = async () => {
   return await getAllStoresFromDB()
@@ -18,4 +18,8 @@ const getStoreById = async (store) => {
   return await getStoreByIdFromDb(store)
 }
 
-export { getAllStores, addNewStore, updateStore, getStoreById }
+const deleteStoreById = async (id) => {
+  return await deleteStoreByIdFromDb(id)
+}
+
+export { getAllStores, addNewStore, updateStore, getStoreById , deleteStoreById}

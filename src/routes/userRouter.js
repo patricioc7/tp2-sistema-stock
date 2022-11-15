@@ -11,9 +11,8 @@ userRouter.get('/', auth, async (req, res, next) => {
 })
 
 userRouter.post('/',
-  auth,
   body('username').isEmail(),
-  body('name').isEmail(),
+  body('name').isString(),
   body('password').isLength({ min: 5 }),
   async (req, res, next) => {
     const errors = validationResult(req)

@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '')
     console.log(token)
     try {
-      const user = jwt.verify(token, process.env.SECRET_KEY)
+      const user = jwt.verify(token, 'unaclavesupersecreta')
       console.log(user)
       next()
     } catch (error) {

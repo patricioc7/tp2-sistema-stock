@@ -26,4 +26,12 @@ const getCustomerByIdFromDb = async (customerId) => {
     .findOne({ _id: new ObjectId(customerId) })
 }
 
-export { getAllCustomersFromDB, addNewCustomerToDB, getCustomerByIdFromDb }
+const deleteCustomerByIdFromDb = async (storeId) => {
+  const conn = await getConnection()
+  return await conn.db(DATABASE)
+      .collection(CUSTOMER)
+      .deleteOne({ _id: new ObjectId(storeId) })
+
+}
+
+export { getAllCustomersFromDB, addNewCustomerToDB, getCustomerByIdFromDb, deleteCustomerByIdFromDb }

@@ -1,5 +1,5 @@
 import express from 'express'
-import {addNewStore, getAllStores, getStoreById, updateStore} from '../cotroller/storeController.js'
+import {addNewStore, getAllStores, getStoreById, deleteStoreById} from '../cotroller/storeController.js'
 import { body, validationResult } from 'express-validator'
 import { auth } from '../middlewares/auth.js'
 
@@ -24,6 +24,10 @@ storeRouter.post('/',
 
 storeRouter.get('/:id', async (req, res, next) => {
   res.json(await getStoreById(req.params.id))
+})
+
+storeRouter.delete('/:id', async (req, res, next) => {
+    res.json(await deleteStoreById(req.params.id))
 })
 
 export { storeRouter }

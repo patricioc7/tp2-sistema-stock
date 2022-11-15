@@ -2,6 +2,7 @@ import {
   addNewCustomerToDB,
   getAllCustomersFromDB,
   getCustomerByIdFromDb,
+  deleteCustomerByIdFromDb,
 } from '../data/customerDao.js'
 
 const getAllCustomers = async () => {
@@ -17,4 +18,8 @@ const getCustomerById = async (id) => {
   return await getCustomerByIdFromDb(id)
 }
 
-export { getAllCustomers, addNewCustomer, getCustomerById }
+const deleteCustomerById = async (id) => {
+  return await deleteCustomerByIdFromDb(id)
+}
+
+export { getAllCustomers, addNewCustomer, getCustomerById, deleteCustomerById }

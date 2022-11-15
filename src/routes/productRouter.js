@@ -1,7 +1,8 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator'
-import { addNewProduct, getAllProducts, getProductById } from '../cotroller/productController.js'
+import { addNewProduct, getAllProducts, getProductById, deleteProductById } from '../cotroller/productController.js'
 import { auth } from '../middlewares/auth.js'
+import {deleteStoreById} from "../cotroller/storeController.js";
 
 const productRouter = express.Router()
 productRouter.use(auth)
@@ -24,6 +25,10 @@ productRouter.post('/',
 
 productRouter.get('/:id', async (req, res, next) => {
   res.json(await getProductById(req.params.id))
+})
+
+productRouter.delete('/:id', async (req, res, next) => {
+    res.json(await deleteProductById(req.params.id))
 })
 
 export { productRouter }

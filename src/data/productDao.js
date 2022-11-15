@@ -26,4 +26,12 @@ const getProductByIdFromDb = async (productId) => {
     .findOne({ _id: new ObjectId(productId) })
 }
 
-export { getAllProductsFromDB, addNewProductToDB, getProductByIdFromDb }
+const deleteProductByIdFromDb = async (productId) => {
+  const conn = await getConnection()
+  return await conn.db(DATABASE)
+      .collection(PRODUCT)
+      .deleteOne({ _id: new ObjectId(productId) })
+
+}
+
+export { getAllProductsFromDB, addNewProductToDB, getProductByIdFromDb, deleteProductByIdFromDb }

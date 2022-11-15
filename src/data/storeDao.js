@@ -33,4 +33,12 @@ const getStoreByIdFromDb = async (storeId) => {
     .findOne({ _id: new ObjectId(storeId) })
 }
 
-export { getAllStoresFromDB, addNewStoreToDB, updateStoreOnDB, getStoreByIdFromDb }
+const deleteStoreByIdFromDb = async (storeId) => {
+  const conn = await getConnection()
+  return await conn.db(DATABASE)
+      .collection(STORE)
+      .deleteOne({ _id: new ObjectId(storeId) })
+
+}
+
+export { getAllStoresFromDB, addNewStoreToDB, updateStoreOnDB, getStoreByIdFromDb, deleteStoreByIdFromDb }

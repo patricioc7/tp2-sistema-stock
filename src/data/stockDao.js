@@ -12,6 +12,21 @@ const getAllStockFromDB = async () => {
     .toArray()
 }
 
+const getStocksPaginatedFromDB = async (pageSize, page) => {
+  const conn = await getConnection()
+  return await conn.db(DATABASE)
+      .collection(STOCK)
+      .find({}).sort({_id:-1}).limit(pageSize).skip(pageSize * page)
+      .toArray()
+}
+
+const getStockPagesFromDB = async () => {
+  const conn = await getConnection()
+  return await conn.db(DATABASE)
+      .collection(STOCK)
+      .countDocuments({})
+}
+
 const addNewStockFromDB = async (stock) => {
   const conn = await getConnection()
   return await conn.db(DATABASE)
@@ -53,4 +68,4 @@ const deleteStockByIdFromDB = async (stockId) => {
     .deleteOne({ _id: new ObjectId(stockId) })
 }
 
-export { getAllStockFromDB, addNewStockFromDB, increaseStockFromDB, decreaseStockFromDB, getStockByIdFromDB, deleteStockByIdFromDB }
+export { getStockPagesFromDB, getAllStockFromDB, addNewStockFromDB, increaseStockFromDB, decreaseStockFromDB, getStockByIdFromDB, deleteStockByIdFromDB, getStocksPaginatedFromDB}

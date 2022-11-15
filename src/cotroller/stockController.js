@@ -1,5 +1,7 @@
 import {
   getAllStockFromDB,
+  getStocksPaginatedFromDB,
+  getStockPagesFromDB,
   addNewStockFromDB,
   increaseStockFromDB,
   decreaseStockFromDB,
@@ -13,6 +15,16 @@ import { logProductSell, logIncreaseStock, logDecreaseStock } from '../domain/ac
 const getAllStock = async () => {
   return await getAllStockFromDB()
 }
+
+const getAllStockPaginated = async (pageSize, page) => {
+  return await getStocksPaginatedFromDB(pageSize, page)
+}
+
+const getAmountOfStockPages = async(pageSize) => {
+  const documentsQty = await getStockPagesFromDB();
+  return Math.ceil(documentsQty / parseInt(pageSize));
+}
+
 
 const addNewStock = async (body) => {
   if (!doesProductExist(body.productId) || !doesStoreExist(body.storeId)) {
@@ -67,4 +79,4 @@ const deleteStockById = async (stockId) => {
   return await deleteStockByIdFromDB(stockId)
 }
 
-export { getAllStock, addNewStock, increaseQtyStock, decreaseQtyStock, getStockById, sellStock, deleteStockById }
+export { getAllStock, getAllStockPaginated, getAmountOfStockPages, addNewStock, increaseQtyStock, decreaseQtyStock, getStockById, sellStock, deleteStockById }

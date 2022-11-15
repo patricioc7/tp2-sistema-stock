@@ -1,8 +1,9 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator'
 
-import { addNewCustomer, getAllCustomers, getCustomerById } from '../cotroller/customerController.js'
+import { addNewCustomer, getAllCustomers, getCustomerById, deleteCustomerById} from '../cotroller/customerController.js'
 import { auth } from '../middlewares/auth.js'
+
 
 const customerRouter = express.Router()
 customerRouter.use(auth)
@@ -25,6 +26,10 @@ customerRouter.post('/',
 
 customerRouter.get('/:id', async (req, res, next) => {
   res.json(await getCustomerById(req.params.id))
+})
+
+customerRouter.delete('/:id', async (req, res, next) => {
+    res.json(await deleteCustomerById(req.params.id))
 })
 
 export { customerRouter }
